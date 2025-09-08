@@ -8,18 +8,21 @@ const HeroSection = () => {
   const images = [
     {
       src: "image.png",
-      title: "Welcome to Surat Municipal Corporation",
+      title: "Welcome to PWD -Delhi",
       subtitle: "Empowering Citizens, Enabling Growth",
+      colorCode: "linear-gradient(90deg, #ff7e5f, #feb47b, #ffcc70)",
     },
     {
       src: "image2.jpg",
       title: "Smart City Initiatives",
-      subtitle: "Building a sustainable future",
+      subtitle: "Transforming cities with technology and sustainability.",
+      colorCode: "linear-gradient(90deg, #4facfe, #00f2fe, #43e97b)", // fixed last hex
     },
     {
-      src: "image3.jpg",
+      src: "image3.png",
       title: "Digital Transformation",
       subtitle: "Services at your fingertips",
+      colorCode: "linear-gradient(90deg, #5824d1ff, #fbc2eb, #fad0c4)",
     },
   ];
 
@@ -55,7 +58,7 @@ const HeroSection = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: "rgba(0,0,0,0.4)",
+                  background: "rgba(0,0,0,0.6)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
@@ -64,15 +67,29 @@ const HeroSection = () => {
                   padding: "0 20px",
                 }}
               >
-                <h1 style={{ fontSize: "2.5rem", marginBottom: "10px" }}>
+                {/* Gradient Title */}
+                <h1
+                  style={{
+                    fontSize: "5rem",
+                    marginBottom: "10px",
+                    fontWeight: "bold",
+                    background: item.colorCode,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
                   {item.title}
                 </h1>
-                <p style={{ fontSize: "1.2rem", marginBottom: "20px" }}>
+
+                <p
+                  style={{
+                    fontSize: "2.2rem",
+                    marginBottom: "20px",
+                    fontStyle: "italic",
+                  }}
+                >
                   {item.subtitle}
                 </p>
-                <Button type="primary" size="large">
-                  Learn More
-                </Button>
               </div>
             </div>
           </div>
