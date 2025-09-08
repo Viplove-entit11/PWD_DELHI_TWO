@@ -14,21 +14,21 @@ const ComplaintSection = () => {
   const options = [
     {
       title: "Toll Free Number",
-      value: "1800 123 8000",
+      value: "1908",
       icon: <PhoneOutlined style={{ fontSize: "36px", color: "#1677ff" }} />,
     },
     {
       title: "WhatsApp",
-      value: "63599 30020",
+      value: "63599 XXXXX",
       icon: <WhatsAppOutlined style={{ fontSize: "36px", color: "#25D366" }} />,
     },
     {
-      title: "Surat Municipal Corporation Mobile App",
+      title: "Delhi Municipal Corporation Mobile App",
       value: "",
       icon: <MobileOutlined style={{ fontSize: "36px", color: "#555" }} />,
     },
     {
-      title: "Surat Municipal Corporation Website",
+      title: "Delhi Municipal Corporation Website",
       value: "",
       icon: <GlobalOutlined style={{ fontSize: "36px", color: "#1677ff" }} />,
     },

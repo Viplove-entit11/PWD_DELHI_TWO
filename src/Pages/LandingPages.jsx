@@ -12,12 +12,12 @@ const LandingPages = () => {
   return (
     <div className='landing-page'>
         <HeroSection/>
-        <AboutPWD/>
-        <OurLeaders/>
         <LatestNews/>
+        <AboutPWD/>
+        {/* <OurLeaders/> */}
         <Services/>
-        <ComplaintSection/>
         <Gallery/>
+        <ComplaintSection/>
         <Footer/>
     </div>
   )

@@ -45,7 +45,7 @@ const cardVariants = {
 
 const PWDAbout = () => {
   return (
-    <div style={{ padding: "60px 20px", background: "#fff" }}>
+    <div style={{ padding: "40px 20px", background: "#fff" }}>
       {/* Section Heading */}
       <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto 50px" }}>
         <Title level={2} style={{ color: "#333", marginBottom: "15px" }}>

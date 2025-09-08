@@ -280,7 +280,8 @@ const createDropdownMenu = (menu) => {
               style={{ 
                 width: "100%", 
                 borderRadius: "8px",
-                maxHeight: "200px",
+                height:"200px",
+                maxHeight: "400px",
                 objectFit: "cover"
               }}
             />

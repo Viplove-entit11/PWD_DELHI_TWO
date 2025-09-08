@@ -40,7 +40,7 @@ const typeColors = {
 
 const LatestNews = () => {
   return (
-    <div style={{ padding: "40px 80px", background: "#fafafa", textAlign: "center" }}>
+    <div style={{ padding: "40px 80px", background: "#fafafa", textAlign: "center", margin:"80px 0px" }}>
       <h2 style={{ fontWeight: "700", fontSize: "24px", marginBottom: "4px" }}>
         NEWS AND UPDATES
       </h2>
