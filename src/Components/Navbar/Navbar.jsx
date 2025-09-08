@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Menu, Dropdown, Row, Col, Space } from "antd";
 import { Link } from "react-router-dom";
 import { Typography, Button } from "antd";
@@ -38,7 +38,6 @@ const menuData = [
       },
     ],
   },
-
   {
     key: "work",
     label: "Work",
@@ -50,21 +49,15 @@ const menuData = [
         label: "Construction Work",
         children: [
           {
-            key: "office-bearers",
-            label: "Office Bearers",
-            path: "/corp/office-bearers",
+            key: "roads",
+            label: "Roads Construction",
+            path: "/work/roads-construction",
           },
           {
-            key: "incumbency",
-            label: "Incumbency Chart",
-            path: "/corp/incumbency",
+            key: "building",
+            label: "Building Construction",
+            path: "/work/building-construction",
           },
-          {
-            key: "corporators",
-            label: "Corporators",
-            path: "/corp/corporators",
-          },
-          { key: "committees", label: "Committees", path: "/corp/committees" },
         ],
       },
       {
@@ -73,20 +66,19 @@ const menuData = [
         children: [
           { key: "setup", label: "Setup (PDF)", path: "/corp/setup" },
           {
-            key: "commissioner",
-            label: "Commissioner",
-            path: "/corp/commissioner",
+            key: "roads-maintanence",
+            label: "Roads Work",
+            path: "/maintanence/roads-maintanence",
           },
           {
-            key: "admin-incumbency",
-            label: "Incumbency Chart",
-            path: "/corp/admin-incumbency",
+            key: "building-maintanence",
+            label: "Building Work",
+            path: "/maintanence/building-maintanence",
           },
         ],
       },
     ],
   },
-
   {
     key: "litigation",
     label: "Litigation",
@@ -111,7 +103,6 @@ const menuData = [
       },
     ],
   },
-
   {
     key: "maintenance-inventory",
     label: "Maintenance / Inventory",
@@ -163,7 +154,6 @@ const menuData = [
       },
     ],
   },
-
   {
     key: "civic-services",
     label: "Civic Services",
@@ -182,7 +172,6 @@ const menuData = [
       },
     ],
   },
-
   {
     key: "acts-publication",
     label: "Acts / Publication",
@@ -229,59 +218,88 @@ const menuData = [
   },
 ];
 
-// --- Renders dropdown depending on structure ---
-const renderMenuColumns = (menu) => {
-  // case 2: parent with children but no nested children
+// Create dropdown menu content
+const createDropdownMenu = (menu) => {
   const hasNested = menu.children?.some((c) => c.children);
 
-  return (
-    <Row gutter={24} style={{ minWidth: "600px" }}>
-      <Col span={16}>
-        <Row gutter={16}>
-          {menu.children.map((sub) => (
-            <Col span={12} key={sub.key}>
-              {hasNested && sub.children ? (
-                <>
-                  <h4 style={{ fontWeight: 600, marginBottom: 8 }}>
-                    {sub.label}
-                  </h4>
-                  {sub.children.map((child) => (
-                    <p key={child.key} style={{ marginBottom: 6 }}>
-                      <Link to={child.path || "#"}>{child.label}</Link>
-                    </p>
-                  ))}
-                </>
-              ) : (
-                // direct links if no nested children
-                <p style={{ marginBottom: 6 }}>
-                  <Link to={sub.path || "#"}>{sub.label}</Link>
-                </p>
-              )}
-            </Col>
-          ))}
-        </Row>
-      </Col>
-      {/* Right side image */}
-      <Col span={8} style={{ textAlign: "right" }}>
-        <img
-          src={menu.image}
-          alt="menu"
-          style={{ width: "100%", borderRadius: "8px" }}
-        />
-      </Col>
-    </Row>
+  const menuContent = (
+    <div style={{ 
+      minWidth: "600px", 
+      background: "#fff", 
+      padding: "20px",
+      borderRadius: "8px",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)"
+    }}>
+      <Row gutter={24}>
+        <Col span={16}>
+          <Row gutter={16}>
+            {menu.children.map((sub) => (
+              <Col span={12} key={sub.key}>
+                {hasNested && sub.children ? (
+                  <>
+                    <h4 style={{ 
+                      fontWeight: 600, 
+                      marginBottom: 8,
+                      color: "#1890ff"
+                    }}>
+                      {sub.label}
+                    </h4>
+                    {sub.children.map((child) => (
+                      <p key={child.key} style={{ 
+                        marginBottom: 6,
+                        fontSize: "14px"
+                      }}>
+                        <Link 
+                          to={child.path || "#"}
+                          style={{ color: "#666", textDecoration: "none" }}
+                        >
+                          {child.label}
+                        </Link>
+                      </p>
+                    ))}
+                  </>
+                ) : (
+                  <p style={{ marginBottom: 6, fontSize: "14px" }}>
+                    <Link 
+                      to={sub.path || "#"}
+                      style={{ color: "#666", textDecoration: "none" }}
+                    >
+                      {sub.label}
+                    </Link>
+                  </p>
+                )}
+              </Col>
+            ))}
+          </Row>
+        </Col>
+        <Col span={8} style={{ textAlign: "right" }}>
+          {menu.image && (
+            <img
+              src={menu.image}
+              alt="menu"
+              style={{ 
+                width: "100%", 
+                borderRadius: "8px",
+                maxHeight: "200px",
+                objectFit: "cover"
+              }}
+            />
+          )}
+        </Col>
+      </Row>
+    </div>
   );
+
+  return <Menu selectable={false}>{menuContent}</Menu>;
 };
 
 const Navbar = () => {
-  const [openKey, setOpenKey] = useState(null);
-
   return (
     <div
       style={{
         background: "#fff",
         borderBottom: "1px solid #eee",
-        padding: "0 40px",
+        width: "100%",
       }}
     >
       {/* Top Row */}
@@ -290,7 +308,7 @@ const Navbar = () => {
         justify="space-between"
         style={{
           background: "#fff",
-          padding: "10px 20px",
+          padding: "10px 40px",
           borderBottom: "1px solid #eee",
         }}
       >
@@ -348,47 +366,109 @@ const Navbar = () => {
         </Col>
       </Row>
 
-      {/* Menu Row */}
-      <Row>
-        <Col>
-          <Menu
-            mode="horizontal"
-            selectedKeys={[openKey]}
-            style={{ borderBottom: "none" }}
-          >
-            {menuData.map((menu) => {
-              // case 1: no children → just Menu.Item with Link
-              if (!menu.children) {
-                return (
-                  <Menu.Item key={menu.key} icon={menu.icon}>
-                    <Link to={menu.path || "#"}>{menu.label}</Link>
-                  </Menu.Item>
-                );
-              }
-
-              // case 2/3: dropdown
+      {/* Menu Row - Fixed Layout */}
+      <div style={{ 
+        width: "100%", 
+        overflow: "hidden",
+        background: "#fff"
+      }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 20px",
+          minHeight: "50px"
+        }}>
+          {menuData.map((menu, index) => {
+            // Simple menu item without dropdown
+            if (!menu.children) {
               return (
-                <Menu.Item
+                <div 
                   key={menu.key}
-                  icon={menu.icon}
-                  onClick={() => setOpenKey(menu.key)}
+                  style={{
+                    padding: "12px 16px",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    transition: "background-color 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#f0f0f0";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                  }}
                 >
-                  <Dropdown
-                    overlay={renderMenuColumns(menu)}
-                    placement="bottomLeft"
-                    trigger={["hover"]}
-                    overlayStyle={{ padding: "20px", background: "#fff" }}
+                  {menu.icon}
+                  <Link 
+                    to={menu.path || "#"} 
+                    style={{ 
+                      color: "#333", 
+                      textDecoration: "none",
+                      fontWeight: 500
+                    }}
                   >
-                    <span style={{ cursor: "pointer" }}>
-                      {menu.label} <DownOutlined style={{ fontSize: "12px" }} />
-                    </span>
-                  </Dropdown>
-                </Menu.Item>
+                    {menu.label}
+                  </Link>
+                </div>
               );
-            })}
-          </Menu>
-        </Col>
-      </Row>
+            }
+
+            // Menu item with dropdown
+            return (
+              <Dropdown
+                key={menu.key}
+                overlay={createDropdownMenu(menu)}
+                placement="bottomLeft"
+                trigger={["hover"]}
+                overlayClassName="custom-dropdown"
+              >
+                <div 
+                  style={{
+                    padding: "12px 16px",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    transition: "background-color 0.2s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#f0f0f0";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                  }}
+                >
+                  {menu.icon}
+                  <span style={{ 
+                    color: "#333", 
+                    fontWeight: 500,
+                    marginRight: "4px"
+                  }}>
+                    {menu.label}
+                  </span>
+                  <DownOutlined style={{ fontSize: "12px", color: "#666" }} />
+                </div>
+              </Dropdown>
+            );
+          })}
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .custom-dropdown .ant-dropdown-menu {
+          padding: 0;
+          border: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .custom-dropdown .ant-dropdown-menu-item:hover {
+          background: transparent;
+        }
+      `}</style>
     </div>
   );
 };
